@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Modern</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        dark: '#111827',
+                        light: '#F3F4F6'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('gunung\ 2.jpg.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            overflow: hidden;
+            position: relative;
+        }
+
+
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .input-focus {
+                @apply outline-none ring-2 ring-primary/50 border-primary;
+            }
+            .btn-hover {
+                @apply hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-300;
+            }
+            .fade-in {
+                animation: fadeIn 0.6s ease-out forwards;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-50 to-purple-50 min-h-screen flex items-center justify-center p-4 font-inter">
+
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 fade-in">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-dark">Buat Akun Baru</h2>
+            <p class="text-gray-500 mt-2">Silakan isi data berikut untuk mendaftar</p>
+        </div>
+
+        <!-- Formulir -->
+        <form id="signupForm" class="space-y-5">
+            <!-- Nama Lengkap -->
+            <div>
+                <label for="nama" class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
+                <div class="relative">
+                    <i class="fa fa-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" id="nama" placeholder="Masukkan nama lengkap"
+                        class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:input-focus transition-all">
+                </div>
+                <p id="namaError" class="text-red-500 text-xs mt-1 hidden">Nama tidak boleh kosong</p>
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <div class="relative">
+                    <i class="fa fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <input type="email" id="email" placeholder="nama@contoh.com"
+                        class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:input-focus transition-all">
+                </div>
+                <p id="emailError" class="text-red-500 text-xs mt-1 hidden">Masukkan alamat email yang valid</p>
+            </div>
+
+            <!-- Kata Sandi -->
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Kata Sandi</label>
+                <div class="relative">
+                    <i class="fa fa-lock absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <input type="password" id="password" placeholder="Minimal 6 karakter"
+                        class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:input-focus transition-all">
+                    <button type="button" onclick="togglePassword()" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                        <i class="fa fa-eye" id="eyeIcon"></i>
+                    </button>
+                </div>
+                <p id="passwordError" class="text-red-500 text-xs mt-1 hidden">Kata sandi minimal 6 karakter</p>
+            </div>
+
+            <!-- Persetujuan -->
+            <div class="flex items-start gap-2">
+                <input type="checkbox" id="terms" class="mt-1 w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary">
+                <label for="terms" class="text-sm text-gray-600">Saya menyetujui <a href="#" class="text-primary font-medium hover:underline">Syarat & Ketentuan</a> serta <a href="#" class="text-primary font-medium hover:underline">Kebijakan Privasi</a></label>
+            </div>
+            <p id="termsError" class="text-red-500 text-xs mt-1 hidden">Anda harus menyetujui syarat dan ketentuan</p>
+
+            <!-- Tombol Daftar -->
+            <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg font-semibold btn-hover">
+                Daftar Sekarang
+            </button>
+        </form>
+
+        <!-- Link Masuk -->
+        <div class="text-center mt-6 text-sm text-gray-600">
+            Sudah punya akun? <a href="login.html" class="text-primary font-medium hover:underline">Masuk di sini</a>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Fungsi untuk menampilkan/menyembunyikan sandi
+        function togglePassword() {
+            const passInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+            if (passInput.type === 'password') {
+                passInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+
+        // Validasi formulir saat dikirim
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let valid = true;
+
+            // Reset pesan error
+            document.querySelectorAll('p[id$="Error"]').forEach(el => el.classList.add('hidden'));
+
+            // Cek nama
+            const nama = document.getElementById('nama').value.trim();
+            if (nama === '') {
+                document.getElementById('namaError').classList.remove('hidden');
+                valid = false;
+            }
+
+            // Cek email
+            const email = document.getElementById('email').value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('emailError').classList.remove('hidden');
+                valid = false;
+            }
+
+            // Cek kata sandi
+            const password = document.getElementById('password').value;
+            if (password.length < 6) {
+                document.getElementById('passwordError').classList.remove('hidden');
+                valid = false;
+            }
+
+            // Cek persetujuan
+            const terms = document.getElementById('terms').checked;
+            if (!terms) {
+                document.getElementById('termsError').classList.remove('hidden');
+                valid = false;
+            }
+
+            // Jika semua valid
+            if (valid) {
+                alert('Pendaftaran berhasil! 🎉');
+                // Di sini nanti bisa ditambahkan kode untuk mengirim data ke server
+                this.reset();
+            }
+        });
+    </script>
+
+</body>
+</html>
